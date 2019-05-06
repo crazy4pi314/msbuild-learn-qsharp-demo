@@ -42,19 +42,24 @@ namespace Build.DeutschJozsa {
         }
         return result == One;
     }
-
-    operation IsNotOracleBalanced(): Bool {
-        IsOracleBalanced(NotOracle);
-    }
-
-    operation IsZeroOracleBalanced(): Bool {
-        IsOracleBalanced(ZeroOracle);
-    }
  
     operation RunDeutschJozsaAlgorithm() : Unit {
         EqualityFactB(IsOracleBalanced(ZeroOracle), false, "Test failed for zero oracle."); 
         EqualityFactB(IsOracleBalanced(OneOracle), false, "Test failed for one oracle.");   
         EqualityFactB(IsOracleBalanced(IdOracle), true, "Test failed for id oracle.");
+        EqualityFactB(IsOracleBalanced(NotOracle), true, "Test failed for not oracle.");
+
+        Message("All tests passed!");                                                         
+    }
+
+    operation RunDeutschJozsaAlgorithmVerbose() : Unit {
+        Message($"The ZeroOracle is Balanced: {IsOracleBalanced(ZeroOracle)}");
+        EqualityFactB(IsOracleBalanced(ZeroOracle), false, "Test failed for zero oracle."); 
+        Message($"The OneOracle is Balanced: {IsOracleBalanced(OneOracle)}");
+        EqualityFactB(IsOracleBalanced(OneOracle), false, "Test failed for one oracle.");   
+        Message($"The IdOracle is Balanced: {IsOracleBalanced(IdOracle)}");
+        EqualityFactB(IsOracleBalanced(IdOracle), true, "Test failed for id oracle.");
+        Message($"The NotOracle is Balanced: {IsOracleBalanced(NotOracle)}");
         EqualityFactB(IsOracleBalanced(NotOracle), true, "Test failed for not oracle.");
 
         Message("All tests passed!");                                                         
