@@ -30,39 +30,22 @@ namespace Build.Demo {
     /// Given a qubit initially in the |0⟩ state, applies the H operation
     /// to that qubit such that it has the state (1/√2) |0⟩ + (1/√2) |1⟩.
     /// Measurement of this state returns a One Result with probability 0.5
-    /// and a Zero Result with probability 0.5.
-    operation Qrng() : Result {
+    /// and a Zero Result with probability 0.5. 
+    operation Qrng(verbose : Bool) : Result {
         using (qubit = Qubit()) {
-
-            H(qubit);
-        
-            return MResetZ(qubit);
-        }
-    }
-
-    /// # Summary
-    /// Generates a random value from {0,1} by measuring a qubit in 
-    /// an equal superposition, and shows the state of the simulator
-    /// along the way.
-    ///
-    /// # Description
-    /// Given a qubit initially in the |0⟩ state, applies the H operation
-    /// to that qubit such that it has the state (1/√2) |0⟩ + (1/√2) |1⟩.
-    /// Measurement of this state returns a One Result with probability 0.5
-    /// and a Zero Result with probability 0.5. The DumpRegister function
-    /// shows the state of the prepared qubit and the qubit right before 
-    /// measurement.
-    operation QrngVerbose() : Result {
-        using (qubit = Qubit()) {
-            Message("Here is what the simulator uses to record a qubit in the 0 state:");
-            DumpRegister((), [qubit]);
-
-            Message(" ");
+            
+            if(verbose){
+                Message("Here is what the simulator uses to record a qubit in the 0 state:");
+                DumpRegister((), [qubit]);
+                Message(" ");
+            }
 
             H(qubit);
 
-            Message("After using H(qubit) to create a superposition state:");
-            DumpRegister((), [qubit]);
+            if(verbose){
+                Message("After using H(qubit) to create a superposition state:");
+                DumpRegister((), [qubit]);
+            }    
 
             return MResetZ(qubit);
         }
